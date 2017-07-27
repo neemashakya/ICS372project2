@@ -106,6 +106,7 @@ public class GUIDisplay extends JFrame implements ActionListener, RefrigeratorDi
 		freezerDoorCloser.addActionListener(this);
 
 		pack();
+		setLocationRelativeTo(null);//centers GUI display
 		setVisible(true);
 	}
 
@@ -143,14 +144,14 @@ public class GUIDisplay extends JFrame implements ActionListener, RefrigeratorDi
 	}
 
 	/**
-	 * @param Freezer object
+	 * @param freezer object
 	 */
 	public void setFreezer(Freezer freezer){
 		this.freezer = freezer;
 	}
 	
 	/**
-	 * @param Fridge object
+	 * @param fridge object
 	 */
 	public void setFridge(Fridge fridge){
 		this.fridge = fridge;

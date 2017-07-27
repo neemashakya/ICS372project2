@@ -1,10 +1,14 @@
+import javafx.stage.FileChooser;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.*;
 
 // This is the main class
 
 public class Driver {
-	private static String configFile = "src\\ConfigurationFile.txt";
+	//private static String configFile = "src\\ConfigurationFile.txt";
 	private static int fridgeLow;
 	private static int fridgeHigh;
 	private static int freezerLow;
@@ -21,13 +25,53 @@ public class Driver {
 	private static int freezerCoolRate;
 
 	public static void main(String[] args) throws Exception {
-		ReadConfigurationFromFile(configFile);
+		int i;
+		String iFile;
+
+		iFile = chooseFile();
+		if (iFile != null) {
+			i = iFile.lastIndexOf('.');
+			if (i >= 0){
+                ReadConfigurationFromFile(iFile);
+            }
+		}
 		//System.out.println(fridgeLow);
 		RefrigeratorDisplay display = new GUIDisplay();
 		RefrigeratorUnit fridge = new Fridge(display, fridgeLow, fridgeHigh, fridgeRateLossDoorClosed, fridgeRateLossDoorOpen, fridgeCompressorStartDiff, fridgeCoolRate);
 		RefrigeratorUnit freezer = new Freezer(display, freezerLow, freezerHigh, freezerRateLossDoorClosed, freezerRateLossDoorOpen, freezerCompressorStartDiff, freezerCoolRate);
-		
 	}
+
+    /**
+     * Function to select a file with JFileChooser
+     * <p>
+     * <b>Precondition:</b>
+     * File is available on drive.
+     * <b>PostCondition:</b>
+     * a file of configuration values is selected.
+     * </p>
+     *
+     * @return returns the given selected file of values
+     * that was choose by the user.
+     */
+	public static String chooseFile() {
+
+        JFileChooser chooser;
+        String fileName;
+        FileNameExtensionFilter filter;
+        int selection;
+
+        fileName = null;
+        chooser = new JFileChooser();
+        filter = new FileNameExtensionFilter("Text Files", "dat", "txt");
+        chooser.setFileFilter(filter);
+        chooser.setCurrentDirectory(new File("."));//sets current directory
+        selection = chooser.showOpenDialog(null);
+
+        if (selection == JFileChooser.APPROVE_OPTION)
+            fileName = chooser.getSelectedFile().getAbsolutePath();
+
+        return (fileName);
+    }
 
 	/**
 	 * Read from the parameters frsom the configuration file
