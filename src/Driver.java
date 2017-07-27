@@ -8,7 +8,7 @@ import java.util.*;
 // This is the main class
 
 public class Driver {
-	//private static String configFile = "src\\ConfigurationFile.txt";
+	private static String configFile = "src\\ConfigurationFile.txt";
 	private static int fridgeLow;
 	private static int fridgeHigh;
 	private static int freezerLow;
@@ -25,16 +25,18 @@ public class Driver {
 	private static int freezerCoolRate;
 
 	public static void main(String[] args) throws Exception {
-		int i;
-		String iFile;
+//		int i;
+//		String iFile;
+//
+//		iFile = chooseFile();
+//		if (iFile != null) {
+//			i = iFile.lastIndexOf('.');
+//			if (i >= 0){
+//                ReadConfigurationFromFile(configFile);
+//            }
+//		}
 
-		iFile = chooseFile();
-		if (iFile != null) {
-			i = iFile.lastIndexOf('.');
-			if (i >= 0){
-                ReadConfigurationFromFile(iFile);
-            }
-		}
+        ReadConfigurationFromFile(configFile);
 		//System.out.println(fridgeLow);
 		RefrigeratorDisplay display = new GUIDisplay();
 		RefrigeratorUnit fridge = new Fridge(display, fridgeLow, fridgeHigh, fridgeRateLossDoorClosed, fridgeRateLossDoorOpen, fridgeCompressorStartDiff, fridgeCoolRate);
@@ -73,11 +75,11 @@ public class Driver {
         return (fileName);
     }
 
-	/**
-	 * Read from the parameters frsom the configuration file
-	 * 
-	 * @throws Exception
-	 */
+    /**
+     * Parses file from storage, processes the values stored.
+     * @param configFile String configFile
+     * @throws Exception  e
+     */
 	public static void ReadConfigurationFromFile(String configFile) throws Exception {
 		try (BufferedReader buffer = new BufferedReader(new FileReader(configFile))) {
 			String line;
