@@ -1,56 +1,79 @@
+import java.util.Observable;
 
 /**
  * This class represents the GUI of the refrigerator display.
  */
-public interface RefrigeratorDisplay {
+public abstract class RefrigeratorDisplay extends Observable{
+	protected static FreedgeContext context;
+	protected static RefrigeratorDisplay instance;
+
+	/**
+	 * Initializes the context and instance
+	 */
+	protected RefrigeratorDisplay() {
+		instance = this;
+		context = FreedgeContext.instance();
+	}
+
+	/**
+	 * For singleton
+	 * 
+	 * @return the object
+	 */
+	public static RefrigeratorDisplay instance() {
+		return instance;
+	}
+
 	/**
 	 * @param Freezer object
 	 */
-	public void setFreezer(Freezer freezer);
+	public abstract void setFreezer(Freezer freezer);
 	
 	/**
 	 * @param Fridge object
 	 */
-	public void setFridge(Fridge fridge);
+	public abstract void setFridge(Fridge fridge);
 
 	/**
 	 * Turns the freezer light on
 	 */
-	public void turnFreezerLightOn();
+	public abstract void turnFreezerLightOn();
 
 	/**
 	 * Turns the freezer light off
 	 */
-	public void turnFreezerLightOff();
+	public abstract void turnFreezerLightOff();
 	
 	/**
 	 * Turns the fridge light on
 	 */
-	public void turnFridgeLightOn();
+	public abstract void turnFridgeLightOn();
 
 	/**
 	 * Turns the fridge light off
 	 */
-	public void turnFridgeLightOff();
+	public abstract void turnFridgeLightOff();
 
 	/**
 	 * Show the current temperature of freezer
 	 */
-	public void freezerTemp(int value);
+	public abstract void freezerTemp(int value);
 	
 	/**
 	 * Show the current temperature of fridge
 	 */
-	public void fridgeTemp(int value);
+	public abstract void fridgeTemp(int value);
 
 	/**
 	 * Indicate that state of the freezer
 	 */
-	public void setFreezerState(RefrigeratorUnit.States status);
+	public abstract void setFreezerState(RefrigeratorUnit.States status);
 
 	/**
 	 * Indicate that state of the fridge
 	 */
-	public void setFridgeState(RefrigeratorUnit.States  status);
+	public abstract void setFridgeState(RefrigeratorUnit.States  status);
+
+	
 	
 }
